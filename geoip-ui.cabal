@@ -1,0 +1,34 @@
+cabal-version:       >= 1.10
+
+name:                geoip-ui
+version:             1
+synopsis:            A new UI for a new GeoIP format
+-- description:
+homepage:            https://github.com/fedora-infra/geoip-ui
+-- bug-reports:
+license:             BSD3
+license-file:        LICENSE
+author:              Rick Elrod
+maintainer:          relrod@redhat.com
+-- copyright:
+category:            Web
+build-type:          Simple
+extra-source-files:  CHANGELOG.md
+
+executable geoip-ui
+  main-is:             Main.hs
+  -- other-modules:
+  -- other-extensions:
+  build-depends:       aeson
+                     , aeson-pretty
+                     , base >= 4 && < 5
+                     , bytestring
+                     , geoip2
+                     , iproute
+                     , lucid
+                     , scotty
+                     , sockaddr
+                     , text
+                     , wai
+  hs-source-dirs:      src
+  default-language:    Haskell2010
