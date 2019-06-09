@@ -130,7 +130,7 @@ index host jsonRes = baseTemplate $ do
 
 main :: IO ()
 main = do
-  db <- openGeoDB "/home/rick/Downloads/GeoLite2-City_20190604/GeoLite2-City.mmdb"
+  db <- openGeoDB "GeoLite2-City.mmdb"
   scotty 3000 $ do
     get "/" $ do
       req <- request
