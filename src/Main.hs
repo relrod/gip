@@ -117,7 +117,8 @@ index host jsonRes = baseTemplate $ do
                    , placeholder_ (T.pack host)
                    , autofocus_
                    ]
-            div_ [class_ "input-group-append"] $
+            div_ [class_ "input-group-append"] $ do
+              span_ [class_ "input-group-text"] "/json"
               input_ [ type_ "submit"
                      , class_ "btn btn-primary"
                      , value_ "Query"
