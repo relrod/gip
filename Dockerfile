@@ -9,4 +9,5 @@ RUN microdnf install tar wget ghc cabal-install && \
   cabal install --only-dependencies && \
   cabal configure && cabal build && \
   ./pull-latest-geoip-data.sh
+USER 1001
 CMD ["cabal", "run"]
