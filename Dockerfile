@@ -8,6 +8,7 @@ RUN microdnf install tar wget ghc cabal-install && \
   cabal update && \
   cabal install --only-dependencies && \
   cabal configure && cabal build && \
+  rm -rf ~/.cabal && \
   ./pull-latest-geoip-data.sh
 USER 1001
 CMD ["/build/dist/build/geoip-ui/geoip-ui"]
