@@ -90,7 +90,7 @@ navbar =
 footer :: Html ()
 footer = do
   div_ [id_ "footer", class_ "serif text-center"] $ do
-    small_ "© 2019 Red Hat, Inc. "
+    small_ "© 2019 Rick Elrod "
     small_ $ do
       "This product includes GeoLite2 data created by MaxMind, "
       "available from "
