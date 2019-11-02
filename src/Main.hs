@@ -3,6 +3,7 @@ module Main where
 
 import qualified Data.ByteString.Lazy.Char8 as B
 import Data.GeoIP2
+import Data.Maybe (fromMaybe)
 import qualified Data.Text as T
 import qualified Data.Text.Lazy as TL
 import Lucid
@@ -97,7 +98,7 @@ footer = do
       a_ [href_ "https://www.maxmind.com"] "https://www.maxmind.com"
       "."
 
-index :: String -> B.ByteString -> Html ()
+index :: TL.Text -> B.ByteString -> Html ()
 index host jsonRes = baseTemplate $ do
   div_ [class_ "container"] $ do
     div_ [class_ "row mt-3"] $
@@ -114,7 +115,7 @@ index host jsonRes = baseTemplate $ do
             input_ [ type_ "text"
                    , id_ "query"
                    , class_ "form-control form-control-lg"
-                   , placeholder_ (T.pack host)
+                   , placeholder_ (TL.toStrict host)
                    , autofocus_
                    ]
             div_ [class_ "input-group-append"] $ do
@@ -135,14 +136,16 @@ main = do
   scotty 3000 $ do
     get "/" $ do
       req <- request
-      html . renderText $ index (showSockAddr $ remoteHost req) ""
+      xff <- header "x-forwarded-for"
+      let visitorIp = fromMaybe (TL.pack . showSockAddr . remoteHost $ req) xff
+      html . renderText $ index visitorIp ""
     get "/ip/:ip" $ do
       ip <- param "ip"
       let res = findGeoData db "en" (read ip)
       let jsonRes = case res of
             Left err -> prettyJson' (UIGeoResultError err)
             Right res -> prettyJson' (UIGeoResult res)
-      html . renderText $ index ip jsonRes
+      html . renderText $ index (TL.pack ip) jsonRes
     get "/ip/:ip/json" $ do
       ip <- param "ip"
       let res = findGeoData db "en" (read ip)
