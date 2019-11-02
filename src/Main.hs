@@ -91,8 +91,8 @@ navbar =
 footer :: Html ()
 footer = do
   div_ [id_ "footer", class_ "serif text-center"] $ do
-    small_ "© 2019 Rick Elrod "
-    small_ $ do
+    p_ [class_ "mb-0 mt-3"] . small_ $ "© 2019 Rick Elrod"
+    p_ [class_ "mb-0"] . small_ $ do
       "This product includes GeoLite2 data created by MaxMind, "
       "available from "
       a_ [href_ "https://www.maxmind.com"] "https://www.maxmind.com"
